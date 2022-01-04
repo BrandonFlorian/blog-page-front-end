@@ -1,71 +1,25 @@
+import React from 'react';
 import './App.css';
-import { Avatar, Box, Button, Flex,  Text  } from '@chakra-ui/react';import { ethers } from 'ethers';
 import { useState } from 'react';
-
-const shortenAddress = (address) => {
-  return `${address.slice(0, 4)}...${address.slice(
-    address.length - 4,
-    address.length
-  )}`;
-}
+import {Article, Brand, CTA, Navbar} from './components';
+import { Footer, Blog, Features, Header, Possibility, WhatGPT3} from './containers';
 
 function App() {
-  const [account, setAccount] = useState({});
-
-  const connectWallet = async () => {
-    if (!window.ethereum) {
-      alert('please install Metamask');
-      return;
-    }
-
-    try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-      const provider =  new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const address = await signer.getAddress();
-      const ens = await provider.lookupAddress(address);
-      const avatar = await provider.getAvatar(ens);
-      const balance = await provider.getBalance(address);
-
-      setAccount({
-        address,
-        avatar,
-        ens,
-        //balance
-      });
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
-    <Flex
-      alignItems='center'
-      justifyContent='center'
-      height='100vh'
-      bg='purple.900'
-    >
-      {account.address ? (
-        <Box
-          maxW='sm'
-          borderRadius='3xl'
-          p='5'
-          bg='white'
-          textAlign='center'
-        >
-          <Avatar name={account.ens} src={account.avatar} size='lg' mb='2'  />
-          {account.ens && (
-            <Text fontSize='xl'>{account.ens}</Text>
-          )}
-          <Text fontSize='xs' title={account.address}>Account: {shortenAddress(account.address)}</Text>
-          <Text fontSize='xs' title={account.address}>Balance: {account.balance} </Text>
-        </Box>
-      ) : (
-        <Button onClick={connectWallet}>Connect wallet</Button>
-      )}
-    </Flex>
-  );
+    <div className='App'>
+      <div className="gradient__bg">
+        <Navbar />
+        <Header />
+      </div>
+      <Brand />
+      <WhatGPT3 />
+      <Features />
+      <Possibility />
+      <CTA />
+      <Blog />
+      <Footer />
+    </div>
+  )
 }
 
-export default App;
+export default App
