@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-//import { useState } from 'react';
 import { Brand, CTA, Navbar} from './components';
 import { Footer, Blog, Features, Header, Possibility, WhatGPT3} from './containers';
 
